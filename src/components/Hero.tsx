@@ -129,9 +129,20 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
   const [loading,    setLoading]    = useState(false);
   const [done,       setDone]       = useState(false);
   const [error,      setError]      = useState("");
+  const [agreed,     setAgreed]     = useState(false);
+
+  // Validate that scheduled date/time is not in the past
+  const isPast = (() => {
+    if (!date || date === "ASAP") return false;
+    const scheduled = new Date(`${date}T${time || "00:00"}`);
+    return scheduled < new Date();
+  })();
+
+  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast;
 
   const handleSubmit = async () => {
-    if (!name.trim() || !phone.trim() || !email.trim()) return;
+    if (!canSubmit) return;
+    if (isPast) { setError("The selected date/time is in the past. Please choose a future time."); return; }
     setLoading(true);
     setError("");
 
@@ -237,11 +248,36 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
                 </div>
               </div>
 
+              {/* Past date warning */}
+              {isPast && (
+                <div className="px-3.5 py-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-600 dark:text-amber-400">
+                  ⚠️ The selected date/time is in the past. Please go back and choose a future time.
+                </div>
+              )}
+
+              {/* No-cancellation checkbox */}
+              <label className="flex items-start gap-3 cursor-pointer select-none">
+                <div className="relative mt-0.5 shrink-0">
+                  <input
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={e => setAgreed(e.target.checked)}
+                    className="sr-only"
+                  />
+                  <div className={`w-4.5 h-4.5 w-[18px] h-[18px] rounded-[5px] border-2 flex items-center justify-center transition-colors ${agreed ? "bg-foreground border-foreground" : "bg-transparent border-border"}`}>
+                    {agreed && <svg className="w-2.5 h-2.5 text-background" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </div>
+                </div>
+                <span className="text-xs text-muted-foreground leading-relaxed">
+                  I understand that <span className="text-foreground font-medium">bookings cannot be cancelled</span> once confirmed. A no-show fee may apply.
+                </span>
+              </label>
+
               {error && (
                 <div className="px-3.5 py-2 bg-red-500/10 border border-red-500/20 rounded-xl text-xs text-red-500">{error}</div>
               )}
 
-              <button onClick={handleSubmit} disabled={!name.trim() || !phone.trim() || !email.trim() || loading}
+              <button onClick={handleSubmit} disabled={!canSubmit || loading}
                 className="w-full py-3.5 bg-foreground text-background font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-40 hover:opacity-90 transition-opacity text-sm">
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Confirm booking"}
               </button>
