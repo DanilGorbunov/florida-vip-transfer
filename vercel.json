@@ -45,7 +45,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.resend.com https://api.mapbox.com https://events.mapbox.com https://*.mapbox.com; worker-src blob:; frame-ancestors 'none';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://api.mapbox.com; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.resend.com https://api.mapbox.com https://events.mapbox.com https://*.mapbox.com wss://*.mapbox.com; worker-src blob: 'self'; child-src blob:; frame-ancestors 'none';"
         }
       ]
     }
