@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback } from "react";
+import { Plus, Minus } from "lucide-react";
 import Map, { Marker, Source, Layer, type MapRef } from "react-map-gl/mapbox";
 import type { LineLayer } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -94,6 +95,22 @@ const HeroMap = ({ from, to }: HeroMapProps) => {
 
   return (
     <div className="relative w-full h-full rounded-3xl overflow-hidden border border-border/40 shadow-2xl">
+      {/* Zoom buttons */}
+      <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-1.5">
+        <button
+          onClick={() => mapRef.current?.zoomIn({ duration: 300 })}
+          className="w-8 h-8 bg-background/90 border border-border/60 rounded-lg flex items-center justify-center text-foreground hover:bg-secondary transition-colors backdrop-blur-sm shadow-sm"
+        >
+          <Plus className="w-3.5 h-3.5" />
+        </button>
+        <button
+          onClick={() => mapRef.current?.zoomOut({ duration: 300 })}
+          className="w-8 h-8 bg-background/90 border border-border/60 rounded-lg flex items-center justify-center text-foreground hover:bg-secondary transition-colors backdrop-blur-sm shadow-sm"
+        >
+          <Minus className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
       <Map
         ref={mapRef}
         mapboxAccessToken={MAPBOX_TOKEN}
@@ -102,9 +119,9 @@ const HeroMap = ({ from, to }: HeroMapProps) => {
         mapStyle={mapStyle}
         attributionControl={false}
         scrollZoom={false}
-        dragPan={false}
-        doubleClickZoom={false}
-        touchZoomRotate={false}
+        dragPan={true}
+        doubleClickZoom={true}
+        touchZoomRotate={true}
       >
         {/* Route line */}
         {routeGeoJSON && (
