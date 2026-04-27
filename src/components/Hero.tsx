@@ -269,7 +269,7 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
                   </div>
                 </div>
                 <span className="text-xs text-muted-foreground leading-relaxed">
-                  I understand that <span className="text-foreground font-medium">bookings cannot be cancelled</span> once confirmed. A no-show fee may apply.
+                  I understand that bookings <span className="text-foreground font-medium">cannot be cancelled less than 24 hours</span> before the scheduled pickup time. A no-show fee may apply.
                 </span>
               </label>
 
