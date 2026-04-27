@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { BookingProvider, useBooking } from "@/contexts/BookingContext";
 import BookingDialog from "@/components/BookingDialog";
 import Index from "./pages/Index";
@@ -47,11 +48,13 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <BookingProvider>
-        <AppContent />
-      </BookingProvider>
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <BookingProvider>
+          <AppContent />
+        </BookingProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

@@ -72,6 +72,8 @@ const BookingDialog = ({ open, onOpenChange, defaultService }: BookingDialogProp
     date: '',
     time: '',
     passengers: '1',
+    flightNumber: '',
+    luggage: '1',
     message: ''
   });
 
@@ -105,6 +107,8 @@ const BookingDialog = ({ open, onOpenChange, defaultService }: BookingDialogProp
         date: '',
         time: '',
         passengers: '1',
+        flightNumber: '',
+        luggage: '1',
         message: ''
       });
     }
@@ -323,6 +327,8 @@ ${t.booking.email.footer}
         date: formData.date,
         time: formData.time,
         passengers: formData.passengers,
+        flightNumber: formData.flightNumber.trim(),
+        luggage: formData.luggage,
         message: formData.message.trim(),
         // Translation keys for email (with different names to avoid duplicates)
         bookingDetails: t.booking.email.ookingDetails,
@@ -414,6 +420,8 @@ ${t.booking.email.footer}
         date: '',
         time: '',
         passengers: '1',
+        flightNumber: '',
+        luggage: '1',
         message: ''
       });
     }, 2000);
@@ -682,6 +690,46 @@ ${t.booking.email.footer}
                   </Select>
                 </div>
               </div>
+
+              {/* Flight number + luggage */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {(formData.service === 'airport') && (
+                  <div className="space-y-2">
+                    <Label htmlFor="flightNumber" className="flex items-center gap-2">
+                      <Plane className="w-4 h-4 text-primary" />
+                      Flight Number <span className="text-muted-foreground text-xs">(optional)</span>
+                    </Label>
+                    <Input
+                      id="flightNumber"
+                      value={formData.flightNumber}
+                      onChange={(e) => setFormData(prev => ({ ...prev, flightNumber: e.target.value }))}
+                      placeholder="e.g. AA1234"
+                      className="h-12"
+                    />
+                  </div>
+                )}
+                <div className="space-y-2">
+                  <Label htmlFor="luggage" className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-primary" />
+                    Luggage bags
+                  </Label>
+                  <Select
+                    value={formData.luggage}
+                    onValueChange={(value) => setFormData(prev => ({ ...prev, luggage: value }))}
+                  >
+                    <SelectTrigger className="h-12">
+                      <SelectValue>
+                        {formData.luggage} {formData.luggage === '1' ? 'bag' : 'bags'}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {['0','1','2','3','4','5','6+'].map((n) => (
+                        <SelectItem key={n} value={n}>{n} {n === '1' ? 'bag' : 'bags'}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -814,7 +862,7 @@ ${t.booking.email.footer}
         {/* Header with Progress */}
         <div className="px-6 pt-6 pb-4 border-b">
           <DialogHeader>
-            <DialogTitle className="sr-only">Book Your Tesla Transfer</DialogTitle>
+            <DialogTitle className="sr-only">Book Your Ride</DialogTitle>
             <DialogDescription>
               Step {currentStep} of {totalSteps}: {stepTitles[currentStep - 1]}
             </DialogDescription>

@@ -1,149 +1,95 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Zap, Globe } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useLanguage, Language } from "@/contexts/LanguageContext";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { useBooking } from "@/contexts/BookingContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
   const { openBookingDialog } = useBooking();
+  const { theme, toggleTheme } = useTheme();
 
-  const languageNames: Record<Language, string> = {
-    en: "EN",
-    de: "DE",
-    sk: "SK",
-    ru: "RU",
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
-    }
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setIsOpen(false);
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-white/10">
-      <div className="container mx-auto px-6">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-foreground">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
+
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center electric-glow">
-              <Zap className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">Tesla VIP Trip</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-background tracking-tight">TrueRide</span>
+            <span className="text-[10px] text-background/50 font-semibold border border-background/20 px-1.5 py-0.5 rounded-full">BETA</span>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="text-foreground hover:text-primary transition-fast"
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {[
+              { label: "How it works", id: "how-it-works" },
+              { label: "Pricing",      id: "coverage"     },
+            ].map(item => (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className="text-sm text-background/70 hover:text-background transition-colors"
+              >
+                {item.label}
+              </button>
+            ))}
+
+            <button
+              onClick={toggleTheme}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-background/60 hover:text-background hover:bg-background/10 transition-colors"
+              aria-label="Toggle theme"
             >
-              {t.nav.home}
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="text-foreground hover:text-primary transition-fast"
-            >
-              {t.nav.services}
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="text-foreground hover:text-primary transition-fast"
-            >
-              {t.nav.contact}
-            </button>
-            
-            {/* Language Switcher */}
-            <Select value={language} onValueChange={(value) => setLanguage(value as Language)}>
-              <SelectTrigger className="w-[90px] bg-secondary/50 border-border">
-                <Globe className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="EN">
-                  {languageNames[language]}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">EN</SelectItem>
-                <SelectItem value="de">DE</SelectItem>
-                <SelectItem value="sk">SK</SelectItem>
-                <SelectItem value="ru">RU</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <Button 
-              className="electric-glow hover-glow"
+
+            <button
               onClick={() => openBookingDialog()}
+              className="h-9 px-5 bg-background text-foreground text-sm font-semibold rounded-full hover:opacity-90 transition-opacity"
             >
-              {t.nav.bookNow}
-            </Button>
+              Book a ride
+            </button>
           </div>
 
-          {/* Mobile Menu Button and Book Now */}
-          <div className="md:hidden flex items-center gap-2">
-            <Button 
-              size="sm"
-              className="electric-glow hover-glow text-xs px-3 py-1.5 h-8"
+          {/* Mobile */}
+          <div className="md:hidden flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="text-background/60 hover:text-background"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <button
               onClick={() => openBookingDialog()}
+              className="h-8 px-4 bg-background text-foreground text-xs font-semibold rounded-full"
             >
-              {t.nav.bookNow}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </Button>
+              Book
+            </button>
+            <button onClick={() => setIsOpen(!isOpen)} className="text-background">
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-4">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="block w-full text-left text-foreground hover:text-primary transition-fast py-2"
-            >
-              {t.nav.home}
-            </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="block w-full text-left text-foreground hover:text-primary transition-fast py-2"
-            >
-              {t.nav.services}
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="block w-full text-left text-foreground hover:text-primary transition-fast py-2"
-            >
-              {t.nav.contact}
-            </button>
-            
-            {/* Language Switcher */}
-            <Select value={language} onValueChange={(value) => setLanguage(value as Language)}>
-              <SelectTrigger className="w-full bg-secondary/50 border-border">
-                <Globe className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="EN">
-                  {languageNames[language]}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">EN</SelectItem>
-                <SelectItem value="de">DE</SelectItem>
-                <SelectItem value="sk">SK</SelectItem>
-                <SelectItem value="ru">RU</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="md:hidden py-4 border-t border-background/10 space-y-1">
+            {[
+              { label: "How it works", id: "how-it-works" },
+              { label: "Pricing",      id: "coverage"     },
+            ].map(item => (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className="block w-full text-left text-sm text-background/70 hover:text-background py-2.5 px-2 rounded-lg hover:bg-background/10 transition-colors"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
         )}
       </div>
