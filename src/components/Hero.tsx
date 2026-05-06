@@ -5,21 +5,28 @@ import HeroMap from "@/components/HeroMap";
 import HeroIllustration from "@/components/HeroIllustration";
 
 const cities = [
-  { id: "tpa",     full: "Tampa Airport (TPA)",    icon: "✈️" },
-  { id: "parrish", full: "Parrish",                icon: "📍" },
-  { id: "anna",    full: "Anna Maria Island",       icon: "🏖️" },
-  { id: "srq",     full: "Sarasota / SRQ Airport", icon: "✈️" },
-  { id: "siesta",  full: "Siesta Key",              icon: "🏖️" },
-  { id: "naples",  full: "Naples",                  icon: "📍" },
-  { id: "orlando", full: "Orlando Airport (MCO)",  icon: "✈️" },
-  { id: "miami",   full: "Miami",                   icon: "🌆" },
+  { id: "tpa",        full: "Tampa Airport (TPA)",    icon: "✈️" },
+  { id: "srq",        full: "Sarasota / SRQ Airport", icon: "✈️" },
+  { id: "parrish",    full: "Parrish",                icon: "📍" },
+  { id: "anna",       full: "Anna Maria Island",       icon: "🏖️" },
+  { id: "siesta",     full: "Siesta Key",              icon: "🏖️" },
+  { id: "nakomis",    full: "Nakomis",                 icon: "📍" },
+  { id: "venice",     full: "Venice",                  icon: "📍" },
+  { id: "englewood",  full: "Englewood",               icon: "📍" },
+  { id: "northport",  full: "North Port",              icon: "📍" },
+  { id: "puntagorda", full: "Punta Gorda",             icon: "📍" },
+  { id: "gasparilla", full: "Gasparilla Island",       icon: "🏝️" },
+  { id: "fortmyers",  full: "Fort Myers",              icon: "📍" },
+  { id: "naples",     full: "Naples",                  icon: "📍" },
+  { id: "orlando",    full: "Orlando Airport (MCO)",   icon: "✈️" },
+  { id: "miami",      full: "Miami",                   icon: "🌆" },
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
-  parrish: { srq: 60,  tpa: 120 },
-  srq:     { siesta: 110, anna: 110, tpa: 160, naples: 250, orlando: 300, miami: 700 },
-  tpa:     { srq: 250, parrish: 120, naples: 450 },
-  orlando: { srq: 400, naples: 600 },
+  parrish:    { srq: 60,  tpa: 200 },
+  srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 700 },
+  tpa:        { parrish: 200, siesta: 250, anna: 250, srq: 250, nakomis: 270, venice: 270, englewood: 270, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  orlando:    { srq: 400, naples: 600 },
 };
 
 const getPrice = (a: string, b: string) =>
