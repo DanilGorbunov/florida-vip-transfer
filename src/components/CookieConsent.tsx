@@ -38,7 +38,7 @@ const CookieConsent = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-md animate-in slide-in-from-bottom-5 duration-300">
+    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-50 animate-in slide-in-from-bottom-5 duration-300">
       <div className="bg-card border border-border rounded-lg shadow-xl p-6 space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">

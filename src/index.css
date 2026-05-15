@@ -163,24 +163,20 @@ All colors MUST be HSL.
   }
 }
 
-/* Dark scrollbar */
+/* Scrollbar — dark mode */
 * {
   scrollbar-width: thin;
   scrollbar-color: hsl(0 0% 25%) transparent;
 }
-*::-webkit-scrollbar {
-  width: 4px;
-}
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-*::-webkit-scrollbar-thumb {
-  background: hsl(0 0% 25%);
-  border-radius: 99px;
-}
-*::-webkit-scrollbar-thumb:hover {
-  background: hsl(0 0% 35%);
-}
+*::-webkit-scrollbar { width: 4px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: hsl(0 0% 25%); border-radius: 99px; }
+*::-webkit-scrollbar-thumb:hover { background: hsl(0 0% 35%); }
+
+/* Scrollbar — light mode */
+.light * { scrollbar-color: hsl(0 0% 75%) transparent; }
+.light *::-webkit-scrollbar-thumb { background: hsl(0 0% 75%); }
+.light *::-webkit-scrollbar-thumb:hover { background: hsl(0 0% 60%); }
 
 /* Mapbox Popup — dark theme */
 .route-popup .mapboxgl-popup-content {

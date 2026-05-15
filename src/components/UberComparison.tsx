@@ -75,56 +75,60 @@ const UberComparison = () => {
         <div className="max-w-4xl mx-auto">
           {/* Comparison table */}
           <div className="luxury-card rounded-2xl overflow-hidden mb-8">
-            {/* Header */}
-            <div className="grid grid-cols-3 bg-primary/10 px-6 py-4 border-b border-border">
-              <div className="text-sm font-semibold text-muted-foreground"></div>
-              <div className="text-center">
-                <span className="text-sm font-bold text-muted-foreground">Uber / Lyft</span>
+            <div className="overflow-x-auto">
+              {/* Header */}
+              <div className="grid grid-cols-3 bg-primary/10 px-4 sm:px-6 py-4 border-b border-border min-w-[400px]">
+                <div className="text-sm font-semibold text-muted-foreground"></div>
+                <div className="text-center">
+                  <span className="text-sm font-bold text-muted-foreground">Uber / Lyft</span>
+                </div>
+                <div className="text-center">
+                  <span className="text-sm font-bold text-primary">TrueRide</span>
+                </div>
               </div>
-              <div className="text-center">
-                <span className="text-sm font-bold text-primary">TrueRide</span>
-              </div>
-            </div>
 
-            {/* Rows */}
-            {rows.map((row, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-3 px-6 py-4 border-b border-border/50 last:border-0 items-center"
-              >
-                <div className="text-sm font-medium text-foreground">{row.feature}</div>
-                <div className="flex items-start gap-2 px-2">
-                  <X className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                  <span className="text-xs text-muted-foreground leading-relaxed">
-                    {row.uber}
-                  </span>
+              {/* Rows */}
+              {rows.map((row, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-3 px-4 sm:px-6 py-4 border-b border-border/50 last:border-0 items-center min-w-[400px]"
+                >
+                  <div className="text-xs sm:text-sm font-medium text-foreground">{row.feature}</div>
+                  <div className="flex items-start gap-1.5 px-1 sm:px-2">
+                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-destructive flex-shrink-0 mt-0.5" />
+                    <span className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed">
+                      {row.uber}
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-1.5 px-1 sm:px-2">
+                    <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-[11px] sm:text-xs text-foreground leading-relaxed">{row.us}</span>
+                  </div>
                 </div>
-                <div className="flex items-start gap-2 px-2">
-                  <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-xs text-foreground leading-relaxed">{row.us}</span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Price examples */}
-          <div className="luxury-card rounded-2xl p-6 mb-8">
+          <div className="luxury-card rounded-2xl p-4 sm:p-6 mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <AlertTriangle className="w-4 h-4 text-yellow-500" />
+              <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0" />
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wide">
                 Real price comparison — popular Florida routes
               </h3>
             </div>
-            <div className="space-y-0 divide-y divide-border/50">
+            <div className="overflow-x-auto">
+            <div className="space-y-0 divide-y divide-border/50 min-w-[340px]">
               {examples.map((ex, i) => (
-                <div key={i} className="grid grid-cols-3 py-3 items-center">
-                  <div className="text-sm text-foreground col-span-1">{ex.route}</div>
-                  <div className="text-sm text-muted-foreground line-through text-center">
+                <div key={i} className="grid grid-cols-3 py-3 items-center gap-2">
+                  <div className="text-xs sm:text-sm text-foreground">{ex.route}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground line-through text-center">
                     {ex.uber}
                   </div>
-                  <div className="text-sm font-bold text-primary text-center">{ex.us}</div>
+                  <div className="text-xs sm:text-sm font-bold text-primary text-center">{ex.us}</div>
                 </div>
               ))}
+            </div>
             </div>
             <p className="text-xs text-muted-foreground mt-4">
               * Uber/Lyft prices are estimates based on typical rates including surge. Actual Uber prices vary.
