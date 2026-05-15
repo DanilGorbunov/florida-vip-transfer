@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, Clock, ChevronDown, MapPin, Calendar, Clock3, Search, X, Loader2 } from "lucide-react";
-import { useBooking } from "@/contexts/BookingContext";
+import { MessageCircle, Clock, ChevronDown, Calendar, Clock3, Search, X, Loader2 } from "lucide-react";
 import HeroMap from "@/components/HeroMap";
 import HeroIllustration from "@/components/HeroIllustration";
 
@@ -308,7 +307,6 @@ const Hero = () => {
   const [date,         setDate]         = useState("");
   const [time,         setTime]         = useState("");
   const [showModal,    setShowModal]    = useState(false);
-  const { openBookingDialog } = useBooking();
 
   const todayISO = new Date().toISOString().split("T")[0];
   const price    = from && to && from !== to ? getPrice(from, to) : null;
@@ -345,11 +343,6 @@ const Hero = () => {
 
           {/* ── Left ───────────────────────────────────────────── */}
           <div className="max-w-md">
-
-            <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-5">
-              <MapPin className="w-3.5 h-3.5" />
-              Sarasota, FL
-            </div>
 
             <h1 className="text-[56px] md:text-[72px] font-black text-foreground leading-[0.95] tracking-tight mb-4">
               No surge.<br />No cancels.

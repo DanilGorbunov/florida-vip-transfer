@@ -1,135 +1,96 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 
-const PrivacyPolicy = () => {
-  const { t } = useLanguage();
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <section className="space-y-3">
+    <h2 className="text-xl font-bold text-foreground">{title}</h2>
+    <div className="text-muted-foreground leading-relaxed space-y-2">{children}</div>
+  </section>
+);
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <div className="container mx-auto px-6 py-20 max-w-4xl">
-        {/* Back Button */}
-        <Link to="/">
-          <Button
-            variant="ghost"
-            className="mb-8 flex items-center gap-2 hover:text-primary"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {t.privacy.back}
-          </Button>
-        </Link>
+const PrivacyPolicy = () => (
+  <div className="min-h-screen bg-background">
+    <Navigation />
 
-        {/* Content */}
-        <div className="space-y-8">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {t.privacy.title}
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              {t.privacy.lastUpdated}
-            </p>
-          </div>
+    <div className="max-w-2xl mx-auto px-6 py-24">
+      <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-10">
+        <ArrowLeft className="w-4 h-4" />
+        Back to home
+      </Link>
 
-          <div className="prose prose-invert max-w-none space-y-6">
-            {/* Introduction */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.introduction.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                {t.privacy.sections.introduction.content}
-              </p>
-            </section>
+      <h1 className="text-4xl font-black text-foreground mb-2">Privacy Policy</h1>
+      <p className="text-sm text-muted-foreground mb-12">Last updated: May 15, 2026</p>
 
-            {/* Information We Collect */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.information.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                {t.privacy.sections.information.intro}
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-                {t.privacy.sections.information.items.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </section>
+      <div className="space-y-10">
 
-            {/* How We Use Information */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.usage.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                {t.privacy.sections.usage.intro}
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-                {t.privacy.sections.usage.items.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </section>
+        <Section title="1. What we collect">
+          <p>When you book a transfer with TrueRide we collect:</p>
+          <ul className="list-disc list-inside space-y-1 ml-2">
+            <li>Full name, email address, and phone number</li>
+            <li>Pickup and drop-off locations</li>
+            <li>Travel date, time, and passenger count</li>
+            <li>Flight number (optional, for airport pickups)</li>
+          </ul>
+          <p>We do not collect payment card data. No account or password is required.</p>
+        </Section>
 
-            {/* Data Security */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.security.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                {t.privacy.sections.security.content}
-              </p>
-            </section>
+        <Section title="2. How we use your data">
+          <p>Your information is used only to:</p>
+          <ul className="list-disc list-inside space-y-1 ml-2">
+            <li>Confirm and coordinate your transfer</li>
+            <li>Share trip details with your assigned driver</li>
+            <li>Send you a booking confirmation by email</li>
+            <li>Contact you about changes or delays</li>
+          </ul>
+          <p>We do not sell your data, send marketing emails, or use your data for profiling.</p>
+        </Section>
 
-            {/* Cookies */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.cookies.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                {t.privacy.sections.cookies.content}
-              </p>
-            </section>
+        <Section title="3. Who we share data with">
+          <p>Your booking details are shared only with:</p>
+          <ul className="list-disc list-inside space-y-1 ml-2">
+            <li><strong className="text-foreground">Your driver</strong> — name, phone, pickup location, and trip details</li>
+            <li><strong className="text-foreground">Resend</strong> (resend.com) — our email delivery provider, used solely to send booking confirmations</li>
+          </ul>
+          <p>No other third parties have access to your personal information.</p>
+        </Section>
 
-            {/* Your Rights */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.rights.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                {t.privacy.sections.rights.intro}
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-                {t.privacy.sections.rights.items.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </section>
+        <Section title="4. Data retention">
+          <p>Booking records are retained for 12 months for operational and legal compliance purposes, then permanently deleted.</p>
+        </Section>
 
-            {/* Contact */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-foreground">
-                {t.privacy.sections.contact.title}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                {t.privacy.sections.contact.content}{" "}
-                <a
-                  href={`mailto:${t.privacy.sections.contact.email}`}
-                  className="text-primary hover:text-primary/80 underline"
-                >
-                  {t.privacy.sections.contact.email}
-                </a>
-              </p>
-            </section>
-          </div>
-        </div>
+        <Section title="5. Cookies">
+          <p>We use a single session cookie to remember your theme preference (light/dark). No tracking or advertising cookies are used.</p>
+        </Section>
+
+        <Section title="6. Your rights">
+          <p>You have the right to:</p>
+          <ul className="list-disc list-inside space-y-1 ml-2">
+            <li>Request a copy of the data we hold about you</li>
+            <li>Ask us to correct or delete your data</li>
+            <li>Withdraw consent at any time</li>
+          </ul>
+          <p>To exercise any of these rights, contact us below.</p>
+        </Section>
+
+        <Section title="7. Contact">
+          <p>
+            Questions about this policy?{" "}
+            <a href="https://wa.me/14153172089" target="_blank" rel="noopener noreferrer"
+              className="text-foreground underline hover:opacity-70 transition-opacity">
+              Message us on WhatsApp
+            </a>
+            {" "}or email{" "}
+            <a href="mailto:djadavin2@gmail.com"
+              className="text-foreground underline hover:opacity-70 transition-opacity">
+              djadavin2@gmail.com
+            </a>
+          </p>
+        </Section>
+
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default PrivacyPolicy;
-

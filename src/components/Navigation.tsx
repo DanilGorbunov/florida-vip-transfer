@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
-import { useBooking } from "@/contexts/BookingContext";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { openBookingDialog } = useBooking();
   const { theme, toggleTheme } = useTheme();
 
   const scrollTo = (id: string) => {
@@ -21,7 +19,6 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold text-background tracking-tight">TrueRide</span>
-            <span className="text-[10px] text-background/50 font-semibold border border-background/20 px-1.5 py-0.5 rounded-full">BETA</span>
           </div>
 
           {/* Desktop nav */}
@@ -48,7 +45,7 @@ const Navigation = () => {
             </button>
 
             <button
-              onClick={() => openBookingDialog()}
+              onClick={() => scrollTo("home")}
               className="h-9 px-5 bg-background text-foreground text-sm font-semibold rounded-full hover:opacity-90 transition-opacity"
             >
               Book a ride
@@ -64,7 +61,7 @@ const Navigation = () => {
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <button
-              onClick={() => openBookingDialog()}
+              onClick={() => scrollTo("home")}
               className="h-8 px-4 bg-background text-foreground text-xs font-semibold rounded-full"
             >
               Book

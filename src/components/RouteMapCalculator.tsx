@@ -2,10 +2,8 @@ import { useState, useCallback, useRef } from "react";
 import Map, { Marker, Source, Layer, Popup, type MapRef } from "react-map-gl/mapbox";
 import type { LineLayer } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { X, MessageCircle, ChevronRight, Plus, Minus } from "lucide-react";
-import { useBooking } from "@/contexts/BookingContext";
+import { X, MessageCircle, Plus, Minus } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 // ── config ────────────────────────────────────────────────────────────────────
@@ -16,34 +14,49 @@ const WHATSAPP_PHONE = "14153172089";
 // ── data ──────────────────────────────────────────────────────────────────────
 
 const cities = [
-  { id: "tpa",     label: "TPA",     full: "Tampa Airport",     lng: -82.533, lat: 27.976 },
-  { id: "parrish", label: "Parrish", full: "Parrish",           lng: -82.436, lat: 27.584 },
-  { id: "anna",    label: "AMI",     full: "Anna Maria Island", lng: -82.733, lat: 27.522 },
-  { id: "srq",     label: "SRQ",     full: "Sarasota / SRQ",   lng: -82.554, lat: 27.395 },
-  { id: "siesta",  label: "SK",      full: "Siesta Key",        lng: -82.548, lat: 27.267 },
-  { id: "naples",  label: "Naples",  full: "Naples",            lng: -81.795, lat: 26.142 },
-  { id: "orlando", label: "MCO",     full: "Orlando Airport",   lng: -81.308, lat: 28.431 },
-  { id: "miami",   label: "Miami",   full: "Miami",             lng: -80.192, lat: 25.762 },
+  { id: "tpa",        label: "TPA",      full: "Tampa Airport",     lng: -82.533, lat: 27.976 },
+  { id: "parrish",    label: "Parrish",  full: "Parrish",           lng: -82.436, lat: 27.584 },
+  { id: "anna",       label: "AMI",      full: "Anna Maria Island", lng: -82.733, lat: 27.522 },
+  { id: "srq",        label: "SRQ",      full: "Sarasota / SRQ",   lng: -82.554, lat: 27.395 },
+  { id: "siesta",     label: "SK",       full: "Siesta Key",        lng: -82.548, lat: 27.267 },
+  { id: "nakomis",    label: "Nokomis",  full: "Nokomis",           lng: -82.434, lat: 27.117 },
+  { id: "venice",     label: "Venice",   full: "Venice",            lng: -82.454, lat: 27.100 },
+  { id: "englewood",  label: "Engl.",    full: "Englewood",         lng: -82.356, lat: 26.963 },
+  { id: "northport",  label: "N.Port",   full: "North Port",        lng: -82.224, lat: 27.044 },
+  { id: "puntagorda", label: "P.Gorda",  full: "Punta Gorda",       lng: -81.956, lat: 26.928 },
+  { id: "gasparilla", label: "Gaspar.",  full: "Gasparilla Is.",    lng: -82.267, lat: 26.720 },
+  { id: "fortmyers",  label: "Ft.Myers", full: "Fort Myers",        lng: -81.872, lat: 26.640 },
+  { id: "naples",     label: "Naples",   full: "Naples",            lng: -81.795, lat: 26.142 },
+  { id: "orlando",    label: "MCO",      full: "Orlando Airport",   lng: -81.308, lat: 28.431 },
+  { id: "miami",      label: "Miami",    full: "Miami",             lng: -80.192, lat: 25.762 },
 ];
 
 const connections = [
-  { id: "c1",  a: "parrish", b: "tpa",     price: 120 },
-  { id: "c2",  a: "parrish", b: "srq",     price: 60  },
-  { id: "c3",  a: "srq",     b: "tpa",     price: 160 },
-  { id: "c4",  a: "srq",     b: "orlando", price: 300 },
-  { id: "c5",  a: "srq",     b: "miami",   price: 700 },
-  { id: "c6",  a: "srq",     b: "naples",  price: 250 },
-  { id: "c7",  a: "tpa",     b: "naples",  price: 450 },
-  { id: "c8",  a: "orlando", b: "naples",  price: 600 },
-  { id: "c9",  a: "srq",     b: "siesta",  price: 110 },
-  { id: "c10", a: "srq",     b: "anna",    price: 110 },
+  { id: "c1",  a: "parrish",    b: "tpa",        price: 200 },
+  { id: "c2",  a: "parrish",    b: "srq",        price: 60  },
+  { id: "c3",  a: "srq",        b: "tpa",        price: 250 },
+  { id: "c4",  a: "srq",        b: "orlando",    price: 300 },
+  { id: "c5",  a: "srq",        b: "miami",      price: 700 },
+  { id: "c6",  a: "srq",        b: "naples",     price: 250 },
+  { id: "c7",  a: "tpa",        b: "naples",     price: 450 },
+  { id: "c8",  a: "orlando",    b: "naples",     price: 600 },
+  { id: "c9",  a: "srq",        b: "siesta",     price: 110 },
+  { id: "c10", a: "srq",        b: "anna",       price: 110 },
+  { id: "c11", a: "srq",        b: "nakomis",    price: 80  },
+  { id: "c12", a: "srq",        b: "venice",     price: 80  },
+  { id: "c13", a: "srq",        b: "englewood",  price: 100 },
+  { id: "c14", a: "srq",        b: "northport",  price: 120 },
+  { id: "c15", a: "srq",        b: "puntagorda", price: 160 },
+  { id: "c16", a: "srq",        b: "gasparilla", price: 160 },
+  { id: "c17", a: "srq",        b: "fortmyers",  price: 200 },
+  { id: "c18", a: "tpa",        b: "fortmyers",  price: 400 },
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
-  parrish: { srq: 60,  tpa: 120 },
-  srq:     { siesta: 110, anna: 110, tpa: 160, naples: 250, orlando: 300, miami: 700 },
-  tpa:     { srq: 250, parrish: 120, naples: 450 },
-  orlando: { srq: 400, naples: 600 },
+  parrish:    { srq: 60, tpa: 200 },
+  srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, orlando: 300, miami: 700 },
+  tpa:        { parrish: 200, srq: 250, siesta: 250, anna: 250, nakomis: 270, venice: 270, englewood: 270, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  orlando:    { srq: 400, naples: 600 },
 };
 
 // ── helpers ───────────────────────────────────────────────────────────────────
@@ -89,7 +102,6 @@ const RouteMapCalculator = () => {
   const [phone, setPhone] = useState("");
 
   const mapRef = useRef<MapRef>(null);
-  const { openBookingDialog } = useBooking();
   const { theme } = useTheme();
   const mapStyle = theme === "light"
     ? "mapbox://styles/mapbox/light-v11"
@@ -163,7 +175,7 @@ const RouteMapCalculator = () => {
     <section className="relative bg-background overflow-hidden" style={{ height: "88vh", minHeight: 520 }} id="coverage">
 
       {/* ── Top overlay ───────────────────────────────────────────────── */}
-      <div className="absolute top-0 left-0 right-0 z-10 px-5 pt-5 pb-6 bg-gradient-to-b from-background/95 via-background/60 to-transparent pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 z-10 px-5 pt-5 pb-6 bg-gradient-to-b from-background/95 via-background/60 to-transparent pointer-events-none text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
           Our Coverage{" "}
           <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Area</span>
@@ -363,17 +375,12 @@ const RouteMapCalculator = () => {
               <Input type="tel" placeholder="Phone" value={phone} onChange={e => setPhone(e.target.value)} className={inputCls} />
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-2">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 h-11 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold rounded-xl transition-colors text-sm">
-                <MessageCircle className="w-4 h-4 fill-white" />
-                Book via WhatsApp
-              </a>
-              <Button variant="outline" className="h-11 px-4 border-border text-sm shrink-0" onClick={() => openBookingDialog()}>
-                Full form <ChevronRight className="w-3.5 h-3.5 ml-1" />
-              </Button>
-            </div>
+            {/* CTA */}
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 h-11 w-full bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold rounded-xl transition-colors text-sm">
+              <MessageCircle className="w-4 h-4 fill-white" />
+              Book via WhatsApp
+            </a>
           </div>
         </div>
       </div>

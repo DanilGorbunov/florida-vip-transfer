@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-// ── Rate limiting ─────────────────────────────────────────────────────────────
+// ── Rate limiting (best-effort; Vercel infrastructure provides DDoS protection) ─
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000;
 const MAX_REQUESTS = 5;
@@ -17,7 +17,7 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-// ── Sanitize ──────────────────────────────────────────────────────────────────
+// ── Sanitize for HTML output ──────────────────────────────────────────────────
 function sanitize(str: string): string {
   if (typeof str !== "string") return "";
   return str
@@ -25,8 +25,34 @@ function sanitize(str: string): string {
     .replace(/"/g, "&quot;").replace(/'/g, "&#x27;");
 }
 
+// ── Sanitize for ICS fields (prevents ICS injection via CRLF) ────────────────
+function sanitizeICS(str: string): string {
+  if (typeof str !== "string") return "";
+  return str.replace(/[\r\n;:\\,]/g, " ").trim();
+}
+
 function isValidEmail(e: string) {
   return typeof e === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) && e.length <= 254;
+}
+
+// ── Field length limits ───────────────────────────────────────────────────────
+const LIMITS = {
+  name:           100,
+  email:          254,
+  phone:           30,
+  pickupLocation: 200,
+  destination:    200,
+  date:            10,
+  time:             5,
+  passengers:       3,
+  service:         50,
+  message:        500,
+  flightNumber:    10,
+};
+
+function truncate(str: string, max: number): string {
+  if (typeof str !== "string") return "";
+  return str.slice(0, max);
 }
 
 // ── ICS generator ─────────────────────────────────────────────────────────────
@@ -44,8 +70,15 @@ function generateICS(b: {
   const dtEnd   = `${end.getFullYear()}${pad(end.getMonth()+1)}${pad(end.getDate())}T${pad(end.getHours())}${pad(end.getMinutes())}00`;
   const now     = new Date();
   const dtStamp = `${now.getUTCFullYear()}${pad(now.getUTCMonth()+1)}${pad(now.getUTCDate())}T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`;
-  const desc    = [`Client: ${b.name}`, `Phone: ${b.phone}`, `Email: ${b.email}`,
-    `Passengers: ${b.passengers}`, b.message ? `Notes: ${b.message}` : ""].filter(Boolean).join("\\n");
+
+  // All user-controlled values go through sanitizeICS to prevent CRLF injection
+  const desc = [
+    `Client: ${sanitizeICS(b.name)}`,
+    `Phone: ${sanitizeICS(b.phone)}`,
+    `Email: ${sanitizeICS(b.email)}`,
+    `Passengers: ${sanitizeICS(b.passengers)}`,
+    b.message ? `Notes: ${sanitizeICS(b.message)}` : "",
+  ].filter(Boolean).join("\\n");
 
   return [
     "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//TrueRide//EN",
@@ -53,8 +86,9 @@ function generateICS(b: {
     "BEGIN:VEVENT",
     `UID:${Date.now()}@trueride.app`, `DTSTAMP:${dtStamp}`,
     `DTSTART:${dtStart}`, `DTEND:${dtEnd}`,
-    `SUMMARY:TrueRide: ${b.pickupLocation} → ${b.destination}`,
-    `DESCRIPTION:${desc}`, `LOCATION:${b.pickupLocation}`,
+    `SUMMARY:TrueRide: ${sanitizeICS(b.pickupLocation)} → ${sanitizeICS(b.destination)}`,
+    `DESCRIPTION:${desc}`,
+    `LOCATION:${sanitizeICS(b.pickupLocation)}`,
     "STATUS:CONFIRMED", "END:VEVENT", "END:VCALENDAR",
   ].join("\r\n");
 }
@@ -64,31 +98,32 @@ export default async function handler(req: any, res: any) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const ip = req.headers["x-forwarded-for"]?.split(",")[0] || req.socket?.remoteAddress || "unknown";
-  if (!checkRateLimit(ip)) return res.status(429).json({ error: "Too many requests." });
+  if (!checkRateLimit(ip)) return res.status(429).json({ error: "Too many requests. Please try again later." });
 
   const contentType = req.headers["content-type"] || "";
   if (!contentType.includes("application/json"))
     return res.status(400).json({ error: "Invalid content type" });
 
   try {
-    const { customerEmail, customerName, bookingData, confirmationEmail } = req.body;
+    const { customerEmail, customerName, bookingData } = req.body;
 
     if (!isValidEmail(customerEmail)) return res.status(400).json({ error: "Invalid email" });
-    if (!customerName) return res.status(400).json({ error: "Missing name" });
-    if (!bookingData)  return res.status(400).json({ error: "Missing booking data" });
+    if (!customerName || typeof customerName !== "string") return res.status(400).json({ error: "Missing name" });
+    if (!bookingData || typeof bookingData !== "object") return res.status(400).json({ error: "Missing booking data" });
 
-    const name = sanitize(customerName.trim());
+    const name = sanitize(truncate(customerName.trim(), LIMITS.name));
     const b = {
-      name:           sanitize(bookingData.name?.trim() ?? ""),
-      email:          (bookingData.email ?? "").trim().toLowerCase(),
-      phone:          sanitize(bookingData.phone?.trim() ?? ""),
-      pickupLocation: sanitize(bookingData.pickupLocation?.trim() ?? ""),
-      destination:    sanitize(bookingData.destination?.trim() ?? ""),
-      date:           bookingData.date ?? "",
-      time:           bookingData.time ?? "",
-      passengers:     sanitize(bookingData.passengers ?? "1"),
-      service:        sanitize(bookingData.service ?? ""),
-      message:        sanitize(bookingData.message?.trim() ?? ""),
+      name:           sanitize(truncate(bookingData.name?.trim() ?? "", LIMITS.name)),
+      email:          truncate((bookingData.email ?? "").trim().toLowerCase(), LIMITS.email),
+      phone:          sanitize(truncate(bookingData.phone?.trim() ?? "", LIMITS.phone)),
+      pickupLocation: sanitize(truncate(bookingData.pickupLocation?.trim() ?? "", LIMITS.pickupLocation)),
+      destination:    sanitize(truncate(bookingData.destination?.trim() ?? "", LIMITS.destination)),
+      // date and time sanitized for HTML — these were previously unsanitized
+      date:           sanitize(truncate(bookingData.date ?? "", LIMITS.date)),
+      time:           sanitize(truncate(bookingData.time ?? "", LIMITS.time)),
+      passengers:     sanitize(truncate(bookingData.passengers ?? "1", LIMITS.passengers)),
+      service:        sanitize(truncate(bookingData.service ?? "", LIMITS.service)),
+      message:        sanitize(truncate(bookingData.message?.trim() ?? "", LIMITS.message)),
     };
 
     const apiKey = process.env.RESEND_API_KEY;
@@ -96,16 +131,18 @@ export default async function handler(req: any, res: any) {
 
     const resend = new Resend(apiKey);
 
-    // ── Admin notification + ICS ─────────────────────────────────────────────
     const hasValidDate = b.date && b.date !== "ASAP" && /^\d{4}-\d{2}-\d{2}$/.test(b.date);
     const hasValidTime = b.time && b.time !== "ASAP" && /^\d{2}:\d{2}$/.test(b.time);
     const icsDate = hasValidDate ? b.date : new Date().toISOString().split("T")[0];
     const icsTime = hasValidTime ? b.time : "09:00";
     const ics     = generateICS({ ...b, date: icsDate, time: icsTime });
 
+    const fromEmail  = process.env.RESEND_FROM_EMAIL  || "TrueRide <onboarding@resend.dev>";
+    const adminEmail = process.env.BOOKING_ADMIN_EMAIL || "djadavin2@gmail.com";
+
     await resend.emails.send({
-      from:    "TrueRide <onboarding@resend.dev>",
-      to:      "djadavin2@gmail.com",
+      from:    fromEmail,
+      to:      adminEmail,
       subject: `🚗 New booking: ${b.pickupLocation} → ${b.destination} · ${b.date} · ${b.name}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#111">
@@ -123,16 +160,17 @@ export default async function handler(req: any, res: any) {
         </div>
       `,
       attachments: [{
-        filename:    `booking-${icsDate}-${b.name.replace(/\s+/g, "-")}.ics`,
-        content:     Buffer.from(ics).toString("base64"),
+        filename: `booking-${icsDate}-${b.name.replace(/[^a-zA-Z0-9-]/g, "-").slice(0, 40)}.ics`,
+        content:  Buffer.from(ics).toString("base64"),
       }],
     });
 
-    console.log("[API] Admin email sent via Resend");
+    console.log("[API] Admin email sent");
     return res.status(200).json({ success: true });
 
   } catch (err: any) {
     console.error("[API] Error:", err);
-    return res.status(500).json({ error: err.message ?? "Unknown error" });
+    // Never expose internal error details to the client
+    return res.status(500).json({ error: "Failed to process booking. Please try WhatsApp." });
   }
 }

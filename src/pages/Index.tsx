@@ -1,10 +1,12 @@
+import { Suspense, lazy } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
-import RouteMapCalculator from "@/components/RouteMapCalculator";
 import UberComparison from "@/components/UberComparison";
 import Reviews from "@/components/Reviews";
 import AppTeaser from "@/components/AppTeaser";
+
+const RouteMapCalculator = lazy(() => import("@/components/RouteMapCalculator"));
 
 const Index = () => {
   return (
@@ -12,7 +14,9 @@ const Index = () => {
       <Navigation />
       <Hero />
       <HowItWorks />
-      <RouteMapCalculator />
+      <Suspense fallback={<div className="bg-background" style={{ height: "88vh" }} />}>
+        <RouteMapCalculator />
+      </Suspense>
       <UberComparison />
       <Reviews />
       <AppTeaser />

@@ -26,13 +26,13 @@ const AppTeaser = () => (
               </div>
 
               <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-                Florida VIP<br />
+                TrueRide<br />
                 <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                   on your phone
                 </span>
               </h2>
               <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                Book, track, and manage your rides from the app. iOS & Android — launching 2025.
+                Book, track, and manage your rides from the app. iOS & Android — launching 2026.
               </p>
 
               <div className="flex flex-col gap-3 mb-8">

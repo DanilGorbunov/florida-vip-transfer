@@ -1,2 +1,1 @@
-Sitemap: https://teslaviptrip.com/sitemap.xml
-
+Sitemap: https://trueride.app/sitemap.xml

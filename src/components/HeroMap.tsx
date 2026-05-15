@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from "react";
-import { Plus, Minus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Map, { Marker, Source, Layer, type MapRef } from "react-map-gl/mapbox";
 import type { LineLayer } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -109,12 +109,6 @@ const HeroMap = ({ from, to }: HeroMapProps) => {
           className="w-8 h-8 bg-background/90 border border-border/60 rounded-lg flex items-center justify-center text-foreground hover:bg-secondary transition-colors backdrop-blur-sm shadow-sm"
         >
           <Plus className="w-3.5 h-3.5" />
-        </button>
-        <button
-          onClick={() => mapRef.current?.zoomOut({ duration: 300 })}
-          className="w-8 h-8 bg-background/90 border border-border/60 rounded-lg flex items-center justify-center text-foreground hover:bg-secondary transition-colors backdrop-blur-sm shadow-sm"
-        >
-          <Minus className="w-3.5 h-3.5" />
         </button>
       </div>
 

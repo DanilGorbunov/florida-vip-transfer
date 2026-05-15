@@ -1,6 +1,8 @@
 import { Check, X, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useBooking } from "@/contexts/BookingContext";
+
+const scrollToHero = () =>
+  document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
 
 const rows = [
   {
@@ -55,8 +57,6 @@ const examples = [
 ];
 
 const UberComparison = () => {
-  const { openBookingDialog } = useBooking();
-
   return (
     <section className="py-20 bg-secondary/20">
       <div className="container mx-auto px-6">
@@ -82,7 +82,7 @@ const UberComparison = () => {
                 <span className="text-sm font-bold text-muted-foreground">Uber / Lyft</span>
               </div>
               <div className="text-center">
-                <span className="text-sm font-bold text-primary">Florida VIP Transfer</span>
+                <span className="text-sm font-bold text-primary">TrueRide</span>
               </div>
             </div>
 
@@ -135,7 +135,7 @@ const UberComparison = () => {
             <Button
               size="lg"
               className="px-10 py-4 text-lg electric-glow hover-glow"
-              onClick={() => openBookingDialog()}
+              onClick={scrollToHero}
             >
               Book Fixed-Price Transfer
             </Button>
