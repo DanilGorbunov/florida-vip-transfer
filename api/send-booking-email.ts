@@ -49,6 +49,7 @@ const LIMITS = {
   message:        500,
   flightNumber:    10,
   vehicles:         2,
+  address:        200,
 };
 
 function truncate(str: string, max: number): string {
@@ -61,7 +62,7 @@ function generateICS(b: {
   name: string; phone: string; email: string;
   pickupLocation: string; destination: string;
   date: string; time: string;
-  passengers: string; service: string; message: string; flightNumber: string; vehicles: string;
+  passengers: string; service: string; message: string; flightNumber: string; vehicles: string; address: string;
 }): string {
   const [year, month, day] = b.date.split("-").map(Number);
   const [hour, minute]     = b.time.split(":").map(Number);
@@ -78,6 +79,7 @@ function generateICS(b: {
     `Phone: ${sanitizeICS(b.phone)}`,
     `Email: ${sanitizeICS(b.email)}`,
     `Passengers: ${sanitizeICS(b.passengers)}`,
+    b.address      ? `Address: ${sanitizeICS(b.address)}`     : "",
     b.flightNumber ? `Flight: ${sanitizeICS(b.flightNumber)}` : "",
     b.message ? `Notes: ${sanitizeICS(b.message)}` : "",
   ].filter(Boolean).join("\\n");
@@ -130,6 +132,7 @@ export default async function handler(req: any, res: any) {
       message:        sanitize(truncate(bookingData.message?.trim() ?? "", LIMITS.message)),
       flightNumber:   sanitize(truncate(bookingData.flightNumber?.trim() ?? "", LIMITS.flightNumber)),
       vehicles:       sanitize(truncate(bookingData.vehicles ?? "1", LIMITS.vehicles)),
+      address:        sanitize(truncate(bookingData.address?.trim() ?? "", LIMITS.address)),
     };
 
     const apiKey = process.env.RESEND_API_KEY;
@@ -158,6 +161,7 @@ export default async function handler(req: any, res: any) {
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Phone</td><td style="padding:8px 0;border-bottom:1px solid #eee">${b.phone}</td></tr>
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">From</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.pickupLocation}</td></tr>
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">To</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.destination}</td></tr>
+            ${b.address ? `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Address</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.address}</td></tr>` : ""}
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Date / Time</td><td style="padding:8px 0;border-bottom:1px solid #eee">${b.date} ${b.time}</td></tr>
             ${b.flightNumber ? `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Flight</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.flightNumber}</td></tr>` : ""}
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Passengers</td><td style="padding:8px 0;border-bottom:1px solid #eee">${b.passengers}</td></tr>

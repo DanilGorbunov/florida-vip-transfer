@@ -128,6 +128,7 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
   const [phone,      setPhone]      = useState("");
   const [email,      setEmail]      = useState("");
   const [flight,     setFlight]     = useState("");
+  const [address,    setAddress]    = useState("");
   const [passengers, setPassengers] = useState(1);
   const [largeBags,  setLargeBags]  = useState(0);
   const [smallBags,  setSmallBags]  = useState(0);
@@ -151,8 +152,12 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
     Math.ceil(smallBags / 6),
   );
 
-  const isAirportRoute = /airport/i.test(fromFull) || /airport/i.test(toFull);
-  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast && (!isAirportRoute || flight.trim());
+  const isAirportRoute    = /airport/i.test(fromFull) || /airport/i.test(toFull);
+  const isPickupAirport   = /airport/i.test(fromFull);
+  const addressLabel      = isPickupAirport ? "Drop-off address *" : "Pick-up address *";
+  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast
+    && (!isAirportRoute || flight.trim())
+    && (!isAirportRoute || address.trim());
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -183,6 +188,7 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
             passengers:     String(passengers),
             service:        "Transfer",
             flightNumber:   flight,
+            address:        address,
             luggage:        [
               largeBags > 0 ? `${largeBags} large bag${largeBags > 1 ? "s" : ""}` : "",
               smallBags > 0 ? `${smallBags} small bag${smallBags > 1 ? "s" : ""}` : "",
@@ -267,6 +273,20 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
                   className={inputCls}
                 />
               </div>
+
+              {/* Street address — required for airport routes */}
+              {isAirportRoute && (
+                <div className="space-y-1.5">
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Address</p>
+                  <input
+                    type="text"
+                    placeholder={addressLabel}
+                    value={address}
+                    onChange={e => setAddress(e.target.value)}
+                    className={inputCls}
+                  />
+                </div>
+              )}
 
               {/* Trip details */}
               <div className="space-y-1.5">
