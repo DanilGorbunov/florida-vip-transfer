@@ -60,16 +60,16 @@ function generateICS(b: {
   name: string; phone: string; email: string;
   pickupLocation: string; destination: string;
   date: string; time: string;
-  passengers: string; service: string; message: string;
+  passengers: string; service: string; message: string; flightNumber: string;
 }): string {
   const [year, month, day] = b.date.split("-").map(Number);
   const [hour, minute]     = b.time.split(":").map(Number);
   const pad = (n: number) => String(n).padStart(2, "0");
-  const dtStart = `${year}${pad(month)}${pad(day)}T${pad(hour)}${pad(minute)}00`;
-  const end     = new Date(year, month - 1, day, hour + 2, minute);
-  const dtEnd   = `${end.getFullYear()}${pad(end.getMonth()+1)}${pad(end.getDate())}T${pad(end.getHours())}${pad(end.getMinutes())}00`;
-  const now     = new Date();
-  const dtStamp = `${now.getUTCFullYear()}${pad(now.getUTCMonth()+1)}${pad(now.getUTCDate())}T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`;
+  const dtLocal  = `${year}${pad(month)}${pad(day)}T${pad(hour)}${pad(minute)}00`;
+  const endHour  = hour + 2 >= 24 ? 23 : hour + 2;
+  const dtEndLocal = `${year}${pad(month)}${pad(day)}T${pad(endHour)}${pad(minute)}00`;
+  const now      = new Date();
+  const dtStamp  = `${now.getUTCFullYear()}${pad(now.getUTCMonth()+1)}${pad(now.getUTCDate())}T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`;
 
   // All user-controlled values go through sanitizeICS to prevent CRLF injection
   const desc = [
@@ -77,6 +77,7 @@ function generateICS(b: {
     `Phone: ${sanitizeICS(b.phone)}`,
     `Email: ${sanitizeICS(b.email)}`,
     `Passengers: ${sanitizeICS(b.passengers)}`,
+    b.flightNumber ? `Flight: ${sanitizeICS(b.flightNumber)}` : "",
     b.message ? `Notes: ${sanitizeICS(b.message)}` : "",
   ].filter(Boolean).join("\\n");
 
@@ -85,7 +86,9 @@ function generateICS(b: {
     "CALSCALE:GREGORIAN", "METHOD:REQUEST",
     "BEGIN:VEVENT",
     `UID:${Date.now()}@trueride.app`, `DTSTAMP:${dtStamp}`,
-    `DTSTART:${dtStart}`, `DTEND:${dtEnd}`,
+    // TZID=America/New_York ensures Google Calendar shows the correct local time
+    `DTSTART;TZID=America/New_York:${dtLocal}`,
+    `DTEND;TZID=America/New_York:${dtEndLocal}`,
     `SUMMARY:TrueRide: ${sanitizeICS(b.pickupLocation)} → ${sanitizeICS(b.destination)}`,
     `DESCRIPTION:${desc}`,
     `LOCATION:${sanitizeICS(b.pickupLocation)}`,
@@ -124,6 +127,7 @@ export default async function handler(req: any, res: any) {
       passengers:     sanitize(truncate(bookingData.passengers ?? "1", LIMITS.passengers)),
       service:        sanitize(truncate(bookingData.service ?? "", LIMITS.service)),
       message:        sanitize(truncate(bookingData.message?.trim() ?? "", LIMITS.message)),
+      flightNumber:   sanitize(truncate(bookingData.flightNumber?.trim() ?? "", LIMITS.flightNumber)),
     };
 
     const apiKey = process.env.RESEND_API_KEY;
@@ -153,6 +157,7 @@ export default async function handler(req: any, res: any) {
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">From</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.pickupLocation}</td></tr>
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">To</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.destination}</td></tr>
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Date / Time</td><td style="padding:8px 0;border-bottom:1px solid #eee">${b.date} ${b.time}</td></tr>
+            ${b.flightNumber ? `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Flight</td><td style="padding:8px 0;border-bottom:1px solid #eee;font-weight:600">${b.flightNumber}</td></tr>` : ""}
             <tr><td style="padding:8px 0;border-bottom:1px solid #eee;color:#888">Passengers</td><td style="padding:8px 0;border-bottom:1px solid #eee">${b.passengers}</td></tr>
             ${b.message ? `<tr><td style="padding:8px 0;color:#888;vertical-align:top">Notes</td><td style="padding:8px 0">${b.message}</td></tr>` : ""}
           </table>

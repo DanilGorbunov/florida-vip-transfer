@@ -144,7 +144,8 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
     return scheduled < new Date();
   })();
 
-  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast;
+  const isAirportRoute = /airport/i.test(fromFull) || /airport/i.test(toFull);
+  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast && (!isAirportRoute || flight.trim());
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -237,10 +238,18 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
                 <input type="email" placeholder="Email *"         value={email} onChange={e => setEmail(e.target.value)} className={inputCls} />
               </div>
 
-              {/* Optional row: flight number */}
+              {/* Flight number — required for airport routes */}
               <div className="space-y-1.5">
-                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Optional</p>
-                <input type="text" placeholder="Flight number (if airport pickup)" value={flight} onChange={e => setFlight(e.target.value)} className={inputCls} />
+                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  {isAirportRoute ? "Flight" : "Optional"}
+                </p>
+                <input
+                  type="text"
+                  placeholder={isAirportRoute ? "Flight number *" : "Flight number (optional)"}
+                  value={flight}
+                  onChange={e => setFlight(e.target.value)}
+                  className={inputCls}
+                />
               </div>
 
               {/* Trip details */}
