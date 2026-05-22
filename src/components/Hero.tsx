@@ -128,8 +128,10 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
   const [phone,      setPhone]      = useState("");
   const [email,      setEmail]      = useState("");
   const [flight,     setFlight]     = useState("");
+  const [address,    setAddress]    = useState("");
   const [passengers, setPassengers] = useState(1);
-  const [luggage,    setLuggage]    = useState(0);
+  const [largeBags,  setLargeBags]  = useState(0);
+  const [smallBags,  setSmallBags]  = useState(0);
   const [carSeats,   setCarSeats]   = useState(0);
   const [boosters,   setBoosters]   = useState(0);
   const [loading,    setLoading]    = useState(false);
@@ -144,7 +146,18 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
     return scheduled < new Date();
   })();
 
-  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast;
+  const vehiclesNeeded = Math.max(
+    Math.ceil(passengers / 6),
+    Math.ceil(largeBags / 4),
+    Math.ceil(smallBags / 6),
+  );
+
+  const isAirportRoute    = /airport/i.test(fromFull) || /airport/i.test(toFull);
+  const isPickupAirport   = /airport/i.test(fromFull);
+  const addressLabel      = isPickupAirport ? "Drop-off address *" : "Pick-up address *";
+  const canSubmit = name.trim() && phone.trim() && email.trim() && agreed && !isPast
+    && (!isAirportRoute || flight.trim())
+    && (!isAirportRoute || address.trim());
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -175,7 +188,12 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
             passengers:     String(passengers),
             service:        "Transfer",
             flightNumber:   flight,
-            luggage:        luggage > 0 ? `${luggage} bag${luggage > 1 ? "s" : ""}` : "",
+            address:        address,
+            luggage:        [
+              largeBags > 0 ? `${largeBags} large bag${largeBags > 1 ? "s" : ""}` : "",
+              smallBags > 0 ? `${smallBags} small bag${smallBags > 1 ? "s" : ""}` : "",
+            ].filter(Boolean).join(", "),
+            vehicles:       String(vehiclesNeeded),
             message:        extras,
           },
           confirmationEmail: {
@@ -212,7 +230,12 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
           <h3 className="text-base font-bold text-foreground pr-8">Book a transfer</h3>
           <p className="text-xs text-muted-foreground mt-0.5 leading-snug">
             {fromFull} → {toFull}
-            {price != null && <span className="font-semibold text-foreground"> · ${price} fixed</span>}
+            {price != null && (
+              <span className="font-semibold text-foreground">
+                {" · "}${price * vehiclesNeeded} fixed
+                {vehiclesNeeded > 1 && <span className="text-muted-foreground font-normal"> ({vehiclesNeeded} vehicles)</span>}
+              </span>
+            )}
           </p>
         </div>
 
@@ -237,22 +260,52 @@ const QuickBookModal = ({ fromFull, toFull, price, date, time, onClose }: QuickB
                 <input type="email" placeholder="Email *"         value={email} onChange={e => setEmail(e.target.value)} className={inputCls} />
               </div>
 
-              {/* Optional row: flight number */}
+              {/* Flight number — required for airport routes */}
               <div className="space-y-1.5">
-                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Optional</p>
-                <input type="text" placeholder="Flight number (if airport pickup)" value={flight} onChange={e => setFlight(e.target.value)} className={inputCls} />
+                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                  {isAirportRoute ? "Flight" : "Optional"}
+                </p>
+                <input
+                  type="text"
+                  placeholder={isAirportRoute ? "Flight number *" : "Flight number (optional)"}
+                  value={flight}
+                  onChange={e => setFlight(e.target.value)}
+                  className={inputCls}
+                />
               </div>
+
+              {/* Street address — required for airport routes */}
+              {isAirportRoute && (
+                <div className="space-y-1.5">
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Address</p>
+                  <input
+                    type="text"
+                    placeholder={addressLabel}
+                    value={address}
+                    onChange={e => setAddress(e.target.value)}
+                    className={inputCls}
+                  />
+                </div>
+              )}
 
               {/* Trip details */}
               <div className="space-y-1.5">
                 <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Trip details</p>
                 <div className="bg-secondary rounded-2xl px-4">
                   <Counter label="Passengers"    value={passengers} onChange={setPassengers} min={1} />
-                  <Counter label="Luggage bags"  value={luggage}    onChange={setLuggage} />
+                  <Counter label="Large bags"    value={largeBags}  onChange={setLargeBags} />
+                  <Counter label="Small bags"    value={smallBags}  onChange={setSmallBags} />
                   <Counter label="Car seats"     value={carSeats}   onChange={setCarSeats} />
                   <Counter label="Booster seats" value={boosters}   onChange={setBoosters} />
                 </div>
               </div>
+
+              {/* Multi-vehicle banner */}
+              {vehiclesNeeded > 1 && (
+                <div className="px-3.5 py-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-600 dark:text-amber-400">
+                  🚗 For your party, we recommend booking <strong>{vehiclesNeeded} vehicles</strong>. The price has been updated accordingly.
+                </div>
+              )}
 
               {/* Past date warning */}
               {isPast && (
