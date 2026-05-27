@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -35,6 +36,13 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
+
+            <Link
+              to="/blog"
+              className="text-sm text-background/70 hover:text-background transition-colors"
+            >
+              Blog
+            </Link>
 
             <button
               onClick={toggleTheme}
@@ -87,6 +95,13 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
+            <Link
+              to="/blog"
+              onClick={() => setIsOpen(false)}
+              className="block w-full text-left text-sm text-background/70 hover:text-background py-2.5 px-2 rounded-lg hover:bg-background/10 transition-colors"
+            >
+              Blog
+            </Link>
           </div>
         )}
       </div>
