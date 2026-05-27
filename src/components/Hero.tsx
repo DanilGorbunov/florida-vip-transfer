@@ -24,9 +24,9 @@ const cities = [
 
 const priceMap: Record<string, Record<string, number>> = {
   parrish:    { srq: 60, tpa: 120 },
-  sarasota:   { srq: 60, tpa: 160 },
+  sarasota:   { srq: 60, tpa: 250 },
   srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 600 },
-  tpa:        { parrish: 120, sarasota: 160, siesta: 180, anna: 180, srq: 250, nakomis: 180, venice: 180, englewood: 200, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  tpa:        { parrish: 120, sarasota: 250, siesta: 180, anna: 180, srq: 250, nakomis: 180, venice: 180, englewood: 200, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
   orlando:    { srq: 400, naples: 600 },
 };
 

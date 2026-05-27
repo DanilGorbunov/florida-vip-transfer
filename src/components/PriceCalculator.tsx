@@ -17,7 +17,7 @@ const priceMatrix: Record<string, Record<string, number>> = {
   },
   "Sarasota": {
     "Sarasota Airport (SRQ)": 60,
-    "Tampa Airport (TPA)": 160,
+    "Tampa Airport (TPA)": 250,
   },
   "Sarasota Airport (SRQ)": {
     "Siesta Key": 110,
@@ -36,7 +36,7 @@ const priceMatrix: Record<string, Record<string, number>> = {
   },
   "Tampa Airport (TPA)": {
     "Parrish": 120,
-    "Sarasota": 160,
+    "Sarasota": 250,
     "Siesta Key": 180,
     "Anna Maria Island": 180,
     "Nakomis": 180,
