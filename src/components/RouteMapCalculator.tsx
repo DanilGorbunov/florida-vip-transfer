@@ -53,6 +53,8 @@ const connections = [
   { id: "c18", a: "tpa",        b: "fortmyers",  price: 400 },
   { id: "c19", a: "sarasota",   b: "srq",        price: 60  },
   { id: "c20", a: "sarasota",   b: "tpa",        price: 250 },
+  { id: "c21", a: "tpa",        b: "siesta",     price: 180 },
+  { id: "c22", a: "tpa",        b: "anna",       price: 180 },
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
