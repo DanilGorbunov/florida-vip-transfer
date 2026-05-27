@@ -4,9 +4,10 @@ import HeroMap from "@/components/HeroMap";
 import HeroIllustration from "@/components/HeroIllustration";
 
 const cities = [
-  { id: "tpa",        full: "Tampa Airport (TPA)",    icon: "✈️" },
-  { id: "srq",        full: "Sarasota / SRQ Airport", icon: "✈️" },
-  { id: "parrish",    full: "Parrish",                icon: "📍" },
+  { id: "tpa",        full: "Tampa Airport (TPA)",      icon: "✈️" },
+  { id: "srq",        full: "Sarasota Airport (SRQ)",   icon: "✈️" },
+  { id: "sarasota",   full: "Sarasota",                 icon: "🏙️" },
+  { id: "parrish",    full: "Parrish",                  icon: "📍" },
   { id: "anna",       full: "Anna Maria Island",       icon: "🏖️" },
   { id: "siesta",     full: "Siesta Key",              icon: "🏖️" },
   { id: "nakomis",    full: "Nakomis",                 icon: "📍" },
@@ -22,9 +23,10 @@ const cities = [
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
-  parrish:    { srq: 60,  tpa: 200 },
-  srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 700 },
-  tpa:        { parrish: 200, siesta: 250, anna: 250, srq: 250, nakomis: 270, venice: 270, englewood: 270, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  parrish:    { srq: 60, tpa: 120 },
+  sarasota:   { srq: 60, tpa: 160 },
+  srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 600 },
+  tpa:        { parrish: 120, sarasota: 160, siesta: 180, anna: 180, srq: 250, nakomis: 180, venice: 180, englewood: 200, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
   orlando:    { srq: 400, naples: 600 },
 };
 

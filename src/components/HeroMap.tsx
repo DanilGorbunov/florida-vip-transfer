@@ -8,10 +8,11 @@ import { useTheme } from "@/contexts/ThemeContext";
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN as string;
 
 const cities = [
-  { id: "tpa",        label: "TPA",      full: "Tampa Airport",     lng: -82.533, lat: 27.976 },
-  { id: "parrish",    label: "Parrish",  full: "Parrish",           lng: -82.436, lat: 27.584 },
-  { id: "anna",       label: "AMI",      full: "Anna Maria Island", lng: -82.733, lat: 27.522 },
-  { id: "srq",        label: "SRQ",      full: "Sarasota / SRQ",   lng: -82.554, lat: 27.395 },
+  { id: "tpa",        label: "TPA",      full: "Tampa Airport (TPA)",    lng: -82.533, lat: 27.976 },
+  { id: "parrish",    label: "Parrish",  full: "Parrish",                lng: -82.436, lat: 27.584 },
+  { id: "anna",       label: "AMI",      full: "Anna Maria Island",      lng: -82.733, lat: 27.522 },
+  { id: "sarasota",   label: "SAR",      full: "Sarasota",               lng: -82.530, lat: 27.336 },
+  { id: "srq",        label: "SRQ",      full: "Sarasota Airport (SRQ)", lng: -82.554, lat: 27.395 },
   { id: "siesta",     label: "SK",       full: "Siesta Key",        lng: -82.548, lat: 27.267 },
   { id: "nakomis",    label: "Nokomis",  full: "Nakomis",           lng: -82.434, lat: 27.117 },
   { id: "venice",     label: "Venice",   full: "Venice",            lng: -82.454, lat: 27.100 },
@@ -26,9 +27,10 @@ const cities = [
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
-  parrish:    { srq: 60, tpa: 200 },
-  srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 700 },
-  tpa:        { parrish: 200, siesta: 250, anna: 250, srq: 250, nakomis: 270, venice: 270, englewood: 270, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  parrish:    { srq: 60, tpa: 120 },
+  sarasota:   { srq: 60, tpa: 160 },
+  srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 600 },
+  tpa:        { parrish: 120, sarasota: 160, siesta: 180, anna: 180, srq: 250, nakomis: 180, venice: 180, englewood: 200, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
   orlando:    { srq: 400, naples: 600 },
 };
 

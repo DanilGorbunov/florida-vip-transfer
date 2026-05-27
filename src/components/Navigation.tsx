@@ -19,7 +19,9 @@ const Navigation = () => {
 
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-background tracking-tight">TrueRide</span>
+            <Link to="/" className="text-xl font-bold text-background tracking-tight hover:opacity-80 transition-opacity">
+              TrueRide
+            </Link>
           </div>
 
           {/* Desktop nav */}
@@ -52,12 +54,12 @@ const Navigation = () => {
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
-            <button
-              onClick={() => scrollTo("home")}
-              className="h-9 px-5 bg-background text-foreground text-sm font-semibold rounded-full hover:opacity-90 transition-opacity"
+            <Link
+              to="/"
+              className="h-9 px-5 bg-background text-foreground text-sm font-semibold rounded-full hover:opacity-90 transition-opacity inline-flex items-center"
             >
               Book a ride
-            </button>
+            </Link>
           </div>
 
           {/* Mobile */}
@@ -68,12 +70,12 @@ const Navigation = () => {
             >
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-            <button
-              onClick={() => scrollTo("home")}
-              className="h-8 px-4 bg-background text-foreground text-xs font-semibold rounded-full"
+            <Link
+              to="/"
+              className="h-8 px-4 bg-background text-foreground text-xs font-semibold rounded-full inline-flex items-center"
             >
               Book
-            </button>
+            </Link>
             <button onClick={() => setIsOpen(!isOpen)} className="text-background">
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
