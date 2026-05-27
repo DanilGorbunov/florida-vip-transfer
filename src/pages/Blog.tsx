@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import SEO from "@/components/SEO";
 import { blogPosts } from "@/data/blogPosts";
 
 const Blog = () => (
   <div className="min-h-screen bg-background">
+    <SEO
+      title="Blog — Private Car Service & Florida Transportation Tips"
+      description="Insights on airport transfers, private car service, and smart travel across Florida — Tampa, Sarasota, Siesta Key, Anna Maria Island, Naples, Fort Myers and beyond."
+      canonical="/blog"
+    />
     <Navigation />
     <div className="max-w-3xl mx-auto px-6 py-24">
       <h1 className="text-4xl font-black text-foreground mb-3">Blog</h1>

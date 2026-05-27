@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Navigation from "@/components/Navigation";
+import SEO from "@/components/SEO";
 import { getBlogPost } from "@/data/blogPosts";
 
 const BlogPost = () => {
@@ -11,6 +12,14 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        canonical={`/blog/${post.slug}`}
+        image={post.image}
+        type="article"
+        publishedTime={post.date}
+      />
       <Navigation />
       <div className="max-w-2xl mx-auto px-6 py-24">
         <Link
