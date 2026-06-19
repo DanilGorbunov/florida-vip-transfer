@@ -267,7 +267,7 @@ export const blogPosts: BlogPost[] = [
     title: "Why Travelers Are Frustrated With Uber at Airports — And Why Private Airport Transfers Are Making a Comeback",
     date: "June 19, 2026",
     readTime: "5 min read",
-    image: "/images/service-two-cities.jpg",
+    image: "/images/privat_car_service.png",
     excerpt: "More passengers report the same frustrating experience at airports: the rideshare app only shows UberX while premium options vanish or spike in price. Here is why private airport transfers are making a comeback.",
     content: [
       { type: "paragraph", text: "For years, travelers relied on rideshare apps for quick airport transportation. But recently, more passengers are reporting the same frustrating experience: after landing at the airport, the app only offers low-cost ride categories like UberX, while premium options either disappear, show extremely long wait times, or are unavailable altogether." },
@@ -318,7 +318,7 @@ export const blogPosts: BlogPost[] = [
     title: "Uber Is Killing the Premium Segment — And Why That's Bad for Travelers",
     date: "June 19, 2026",
     readTime: "5 min read",
-    image: "/images/IMG_9733.jpg",
+    image: "/images/travel_car.png",
     excerpt: "Uber and Lyft are trying to turn even premium rides into a cheap mass-market product. But premium service cannot exist at economy prices — and here is what that means for drivers and passengers.",
     content: [
       { type: "paragraph", text: "Today Uber and Lyft are trying to turn even premium rides into a cheap mass-market product. But there is a problem: premium service cannot exist at economy prices." },
@@ -386,7 +386,7 @@ export const blogPosts: BlogPost[] = [
     title: "If You Respect Your Driver's Work, Value Your Time and Comfort — Never Order UberX for Airport Transfers",
     date: "June 19, 2026",
     readTime: "5 min read",
-    image: "/images/IMG_9674.jpg",
+    image: "/images/taxi_2.jpeg",
     excerpt: "Airport transportation is not just another ride. Yet many travelers still make one critical mistake: trying to save a few dollars by ordering UberX for an airport transfer. Here is why that logic fails.",
     content: [
       { type: "paragraph", text: "Airport transportation is not just \"another ride.\" It is the beginning or the end of your trip, your first impression of a city, your schedule, your comfort, and often your peace of mind." },
