@@ -13,7 +13,7 @@ import {
 const priceMatrix: Record<string, Record<string, number>> = {
   "Parrish": {
     "Sarasota Airport (SRQ)": 60,
-    "Tampa Airport (TPA)": 120,
+    "Tampa Airport (TPA)": 200,
   },
   "Sarasota": {
     "Sarasota Airport (SRQ)": 60,
@@ -35,18 +35,20 @@ const priceMatrix: Record<string, Record<string, number>> = {
     "Miami": 600,
   },
   "Tampa Airport (TPA)": {
-    "Parrish": 120,
+    "Parrish": 200,
     "Sarasota": 250,
-    "Siesta Key": 180,
-    "Anna Maria Island": 180,
-    "Nakomis": 180,
-    "Venice": 180,
-    "Englewood": 200,
+    "Longboat Key": 250,
+    "Siesta Key": 250,
+    "Anna Maria Island": 250,
+    "Nakomis": 270,
+    "Venice": 270,
+    "Englewood": 270,
     "North Port": 300,
     "Punta Gorda": 300,
     "Gasparilla Island": 320,
     "Fort Myers": 400,
     "Naples": 450,
+    "Miami": 900,
   },
   "Orlando (MCO)": {
     "Sarasota Airport (SRQ)": 400,
@@ -59,6 +61,7 @@ const allLocations = [
   "Sarasota Airport (SRQ)",
   "Sarasota",
   "Parrish",
+  "Longboat Key",
   "Siesta Key",
   "Anna Maria Island",
   "Nakomis",

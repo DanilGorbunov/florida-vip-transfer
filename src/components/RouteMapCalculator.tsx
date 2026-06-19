@@ -30,10 +30,11 @@ const cities = [
   { id: "naples",     label: "Naples",   full: "Naples",            lng: -81.795, lat: 26.142 },
   { id: "orlando",    label: "MCO",      full: "Orlando Airport",   lng: -81.308, lat: 28.431 },
   { id: "miami",      label: "Miami",    full: "Miami",             lng: -80.192, lat: 25.762 },
+  { id: "longboat",   label: "LBK",      full: "Longboat Key",      lng: -82.683, lat: 27.430 },
 ];
 
 const connections = [
-  { id: "c1",  a: "parrish",    b: "tpa",        price: 120 },
+  { id: "c1",  a: "parrish",    b: "tpa",        price: 200 },
   { id: "c2",  a: "parrish",    b: "srq",        price: 60  },
   { id: "c3",  a: "srq",        b: "tpa",        price: 250 },
   { id: "c4",  a: "srq",        b: "orlando",    price: 300 },
@@ -53,15 +54,17 @@ const connections = [
   { id: "c18", a: "tpa",        b: "fortmyers",  price: 400 },
   { id: "c19", a: "sarasota",   b: "srq",        price: 60  },
   { id: "c20", a: "sarasota",   b: "tpa",        price: 250 },
-  { id: "c21", a: "tpa",        b: "siesta",     price: 180 },
-  { id: "c22", a: "tpa",        b: "anna",       price: 180 },
+  { id: "c21", a: "tpa",        b: "siesta",     price: 250 },
+  { id: "c22", a: "tpa",        b: "anna",       price: 250 },
+  { id: "c23", a: "tpa",        b: "longboat",   price: 250 },
+  { id: "c24", a: "tpa",        b: "miami",      price: 900 },
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
-  parrish:    { srq: 60, tpa: 120 },
+  parrish:    { srq: 60, tpa: 200 },
   sarasota:   { srq: 60, tpa: 250 },
   srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, orlando: 300, miami: 600 },
-  tpa:        { parrish: 120, srq: 250, sarasota: 250, siesta: 180, anna: 180, nakomis: 180, venice: 180, englewood: 200, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  tpa:        { parrish: 200, srq: 250, sarasota: 250, siesta: 250, anna: 250, longboat: 250, nakomis: 270, venice: 270, englewood: 270, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450, miami: 900 },
   orlando:    { srq: 400, naples: 600 },
 };
 

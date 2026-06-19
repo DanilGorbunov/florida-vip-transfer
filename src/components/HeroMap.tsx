@@ -24,13 +24,14 @@ const cities = [
   { id: "naples",     label: "Naples",   full: "Naples",            lng: -81.795, lat: 26.142 },
   { id: "orlando",    label: "MCO",      full: "Orlando Airport",   lng: -81.308, lat: 28.431 },
   { id: "miami",      label: "Miami",    full: "Miami",             lng: -80.192, lat: 25.762 },
+  { id: "longboat",   label: "LBK",      full: "Longboat Key",      lng: -82.683, lat: 27.430 },
 ];
 
 const priceMap: Record<string, Record<string, number>> = {
-  parrish:    { srq: 60, tpa: 120 },
+  parrish:    { srq: 60, tpa: 200 },
   sarasota:   { srq: 60, tpa: 250 },
   srq:        { siesta: 110, anna: 110, nakomis: 80, venice: 80, englewood: 100, northport: 120, puntagorda: 160, gasparilla: 160, fortmyers: 200, naples: 250, parrish: 60, orlando: 300, miami: 600 },
-  tpa:        { parrish: 120, sarasota: 250, siesta: 180, anna: 180, srq: 250, nakomis: 180, venice: 180, englewood: 200, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450 },
+  tpa:        { parrish: 200, sarasota: 250, siesta: 250, anna: 250, longboat: 250, srq: 250, nakomis: 270, venice: 270, englewood: 270, northport: 300, puntagorda: 300, gasparilla: 320, fortmyers: 400, naples: 450, miami: 900 },
   orlando:    { srq: 400, naples: 600 },
 };
 

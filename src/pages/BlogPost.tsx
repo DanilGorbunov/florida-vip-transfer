@@ -53,6 +53,10 @@ const BlogPost = () => {
                   <li key={j}>{item}</li>
                 ))}
               </ul>
+            ) : block.type === "heading" ? (
+              <h2 key={i} className="text-xl font-bold text-foreground mt-8 mb-1">
+                {block.text}
+              </h2>
             ) : (
               <p key={i} className="text-foreground/80 leading-relaxed">
                 {block.text}

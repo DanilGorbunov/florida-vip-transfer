@@ -20,7 +20,7 @@ const routes = [
 
 const routeList = [
   { from: "Parrish", to: "Sarasota Airport (SRQ)", price: "$60" },
-  { from: "Parrish", to: "Tampa Airport (TPA)", price: "$120" },
+  { from: "Parrish", to: "Tampa Airport (TPA)", price: "$200" },
   { from: "SRQ", to: "Siesta Key / Anna Maria", price: "$110" },
   { from: "Sarasota", to: "Tampa Airport (TPA)", price: "$160" },
   { from: "Tampa Airport", to: "Sarasota", price: "$250" },

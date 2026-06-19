@@ -254,7 +254,7 @@ export const translations: Record<Language, Translations> = {
         ],
         pricing: [
           { route: "Parrish → Sarasota Airport (SRQ)", price: "$60" },
-          { route: "Parrish → Tampa Airport (TPA)", price: "$120" },
+          { route: "Parrish → Tampa Airport (TPA)", price: "$200" },
         ],
         cta: "Book Parrish Transfer",
       },
@@ -394,7 +394,7 @@ export const translations: Record<Language, Translations> = {
           description: "Parrish to airports",
           options: [
             { label: "Parrish → Sarasota Airport (SRQ)", price: "$60" },
-            { label: "Parrish → Tampa Airport (TPA)", price: "$120" },
+            { label: "Parrish → Tampa Airport (TPA)", price: "$200" },
           ],
         },
         viennaBratislava: {
