@@ -86,8 +86,8 @@ const AppTeaser = () => (
                     </div>
                     <div className="flex-1 rounded-xl bg-primary/5 border border-primary/10 mt-1 overflow-hidden flex items-end justify-center pb-4">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">$160</div>
-                        <div className="text-[9px] text-muted-foreground">SRQ → TPA · Fixed</div>
+                        <div className="text-2xl font-bold text-primary">$250</div>
+                        <div className="text-[9px] text-muted-foreground">TPA → Siesta Key · Fixed</div>
                       </div>
                     </div>
                     <div className="h-9 rounded-xl bg-primary flex items-center justify-center">
