@@ -486,7 +486,7 @@ export const blogPosts: BlogPost[] = [
     title: "Best Way to Get from Orlando Airport (MCO) to Sarasota, Naples, or the Gulf Coast",
     date: "June 28, 2026",
     readTime: "5 min read",
-    image: "/images/IMG_9579.jpg",
+    image: "/images/orlando-to-gulf-coast.webp",
     excerpt:
       "Renting a car at MCO is expensive and exhausting. Uber doesn't cover the full route well. Here's the most reliable way to get from Orlando Airport to Sarasota, Naples, or anywhere on Florida's Gulf Coast.",
     content: [
