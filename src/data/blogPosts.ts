@@ -456,7 +456,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Get from Sarasota to Tampa Airport Without Uber (And Why You Shouldn't)",
     date: "June 25, 2026",
     readTime: "5 min read",
-    image: "/images/travel_car.png",
+    image: "/images/service-two-cities.jpg",
     excerpt:
       "Uber from Sarasota to Tampa Airport sounds easy — until it isn't. Surge pricing at 5am, no drivers available, and no accountability. Here's why a private car is the smarter choice for TPA runs.",
     content: [
@@ -486,7 +486,7 @@ export const blogPosts: BlogPost[] = [
     title: "Best Way to Get from Orlando Airport (MCO) to Sarasota, Naples, or the Gulf Coast",
     date: "June 28, 2026",
     readTime: "5 min read",
-    image: "/images/taxi_2.png",
+    image: "/images/IMG_9579.jpg",
     excerpt:
       "Renting a car at MCO is expensive and exhausting. Uber doesn't cover the full route well. Here's the most reliable way to get from Orlando Airport to Sarasota, Naples, or anywhere on Florida's Gulf Coast.",
     content: [
@@ -516,7 +516,7 @@ export const blogPosts: BlogPost[] = [
     title: "Anna Maria Island Transportation Guide: How to Get To and From Any Florida Airport",
     date: "July 1, 2026",
     readTime: "6 min read",
-    image: "/images/privat_car_service.png",
+    image: "/images/IMG_9674.jpg",
     excerpt:
       "Getting to Anna Maria Island from a Florida airport is trickier than most people expect. No Uber pool, no shuttle, limited rideshare coverage. Here's every option explained — and which one actually works.",
     content: [
@@ -546,7 +546,7 @@ export const blogPosts: BlogPost[] = [
     title: "Siesta Key to the Airport: Private Car vs. Uber — What Actually Works",
     date: "July 4, 2026",
     readTime: "5 min read",
-    image: "/images/c7.jpeg",
+    image: "/images/IMG_9733.jpg",
     excerpt:
       "Siesta Key is consistently rated the best beach in the US. Getting to and from the airport is where the vacation stress begins — unless you plan it right. Here's a realistic comparison of every option.",
     content: [
