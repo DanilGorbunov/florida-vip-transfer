@@ -32,16 +32,27 @@ Naples transportation, Naples airport transfer, Fort Myers transportation, Fort 
     <meta property="og:url" content="https://trueride.app/" />
     <meta property="og:title" content="TrueRide — Private Transfers Across Florida" />
     <meta property="og:description" content="Fixed price, no surge, guaranteed pickup. Private transfers between Sarasota, Tampa, Orlando, Miami and more. Book in seconds — no account needed." />
+    <meta property="og:image" content="https://trueride.app/images/privat_car_service.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="TrueRide — Private Car Service Florida" />
     <meta property="og:site_name" content="TrueRide" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@truerideapp" />
     <meta name="twitter:title" content="TrueRide — Private Transfers Across Florida" />
     <meta name="twitter:description" content="Fixed price, no surge, guaranteed pickup. Private transfers between Sarasota, Tampa, Orlando, Miami and more." />
+    <meta name="twitter:image" content="https://trueride.app/images/privat_car_service.png" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://trueride.app/" />
+
+    <!-- hreflang: English + Spanish (Florida market) -->
+    <link rel="alternate" hreflang="en" href="https://trueride.app/" />
+    <link rel="alternate" hreflang="es" href="https://trueride.app/?lang=es" />
+    <link rel="alternate" hreflang="x-default" href="https://trueride.app/" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -128,6 +139,111 @@ Naples transportation, Naples airport transfer, Fort Myers transportation, Fort 
           }
         ]
       }
+    }
+    </script>
+
+    <!-- LocalBusiness + Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "Organization"],
+      "name": "TrueRide",
+      "legalName": "TrueRide LLC",
+      "url": "https://trueride.app",
+      "logo": "https://trueride.app/favicon.svg",
+      "image": "https://trueride.app/images/privat_car_service.png",
+      "description": "Private car transfer service across Florida — fixed price, no surge pricing, guaranteed pickup 24/7.",
+      "telephone": "+14153172089",
+      "email": "contact@trueride.app",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sarasota",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 27.3364,
+        "longitude": -82.5307
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "priceRange": "$60–$700",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Cash, Credit Card, Zelle, Venmo",
+      "sameAs": [
+        "https://trueride.app"
+      ]
+    }
+    </script>
+
+    <!-- FAQ Schema (rich snippet in Google results) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What areas do you serve?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We serve the greater Sarasota and Parrish area, with transfers to and from Tampa Airport (TPA), Sarasota Airport (SRQ), Orlando Airport (MCO), Naples, Miami, Siesta Key, Anna Maria Island, and more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How far in advance should I book?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We recommend booking at least 24 hours in advance to guarantee availability. However, we do our best to accommodate same-day requests depending on driver availability. For airport pickups, please book ahead so we can track your flight."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you track flights for airport pickups?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — for all airport pickups we monitor your flight in real time. If your flight is delayed or arrives early, we adjust accordingly so there's no extra wait time for you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What payment methods do you accept?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We accept all major credit and debit cards, Zelle, Venmo, and cash. Payment details will be confirmed when you book."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I cancel or modify my booking?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, cancellations or changes made at least 24 hours before your pickup are free of charge. Late cancellations may incur a fee. Please contact us as soon as possible if your plans change."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- BreadcrumbList for homepage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://trueride.app/"
+        }
+      ]
     }
     </script>
   </head>

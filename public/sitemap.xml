@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://trueride.app/</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://trueride.app/blog</loc>
-    <lastmod>2026-05-27</lastmod>
+    <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -75,6 +75,24 @@
   <url>
     <loc>https://trueride.app/blog/why-airport-pickup-costs-more-than-dropoff</loc>
     <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueride.app/blog/why-travelers-are-frustrated-with-uber-at-airports</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueride.app/blog/uber-is-killing-the-premium-segment</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://trueride.app/blog/never-order-uberx-for-airport-transfers</loc>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
