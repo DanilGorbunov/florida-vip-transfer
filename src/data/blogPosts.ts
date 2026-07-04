@@ -456,7 +456,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Get from Sarasota to Tampa Airport Without Uber (And Why You Shouldn't)",
     date: "June 25, 2026",
     readTime: "5 min read",
-    image: "/images/service-two-cities.jpg",
+    image: "/images/sarasota-to-tampa-airport.jpeg",
     excerpt:
       "Uber from Sarasota to Tampa Airport sounds easy — until it isn't. Surge pricing at 5am, no drivers available, and no accountability. Here's why a private car is the smarter choice for TPA runs.",
     content: [
