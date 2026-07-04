@@ -1,1 +1,1 @@
-Sitemap: https://trueride.app/sitemap.xml
+Sitemap: https://trueride.org/sitemap.xml

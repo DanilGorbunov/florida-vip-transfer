@@ -18,7 +18,7 @@ const RoutePage = () => {
     "provider": {
       "@type": "LocalBusiness",
       "name": "TrueRide",
-      "url": "https://trueride.app",
+      "url": "https://trueride.org",
       "telephone": "+14153172089"
     },
     "areaServed": [

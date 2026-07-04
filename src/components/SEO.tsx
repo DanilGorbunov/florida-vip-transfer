@@ -9,7 +9,7 @@ interface SEOProps {
   publishedTime?: string;
 }
 
-const BASE_URL = "https://trueride.app";
+const BASE_URL = "https://trueride.org";
 const DEFAULT_IMAGE = `${BASE_URL}/images/privat_car_service.png`;
 const SEO_SCRIPT_ID = "seo-page-schema";
 
