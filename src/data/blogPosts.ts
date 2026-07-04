@@ -546,7 +546,7 @@ export const blogPosts: BlogPost[] = [
     title: "Siesta Key to the Airport: Private Car vs. Uber — What Actually Works",
     date: "July 4, 2026",
     readTime: "5 min read",
-    image: "/images/IMG_9733.jpg",
+    image: "/images/siesta-key-to-airport.jpg",
     excerpt:
       "Siesta Key is consistently rated the best beach in the US. Getting to and from the airport is where the vacation stress begins — unless you plan it right. Here's a realistic comparison of every option.",
     content: [
