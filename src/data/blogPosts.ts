@@ -454,7 +454,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "sarasota-to-tampa-airport-without-uber",
     title: "How to Get from Sarasota to Tampa Airport Without Uber (And Why You Shouldn't)",
-    date: "July 4, 2026",
+    date: "June 25, 2026",
     readTime: "5 min read",
     image: "/images/travel_car.png",
     excerpt:
@@ -484,7 +484,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "orlando-airport-to-sarasota-naples-guide",
     title: "Best Way to Get from Orlando Airport (MCO) to Sarasota, Naples, or the Gulf Coast",
-    date: "July 4, 2026",
+    date: "June 28, 2026",
     readTime: "5 min read",
     image: "/images/taxi_2.png",
     excerpt:
@@ -514,7 +514,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "anna-maria-island-transportation-guide",
     title: "Anna Maria Island Transportation Guide: How to Get To and From Any Florida Airport",
-    date: "July 4, 2026",
+    date: "July 1, 2026",
     readTime: "6 min read",
     image: "/images/privat_car_service.png",
     excerpt:

@@ -19,7 +19,7 @@ const Blog = () => (
       </p>
 
       <div className="space-y-10">
-        {blogPosts.map((post) => (
+        {[...blogPosts].reverse().map((post) => (
           <article key={post.slug} className="border-b border-border pb-10 last:border-0">
             <Link to={`/blog/${post.slug}`} className="group block">
               <div className="overflow-hidden rounded-xl mb-5">
