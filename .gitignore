@@ -22,6 +22,15 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# Claude Code internals
+.claude/worktrees/
+
+# Original images with spaces in filenames (renamed copies are tracked instead)
+public/images/Anna Maria.jpg
+public/images/Best Way to Get from Orlando .webp
+public/images/How to Get from Sarasota.jpeg
+public/images/Siesta Key to the Airport.jpg
 *.suo
 *.ntvs*
 *.njsproj
