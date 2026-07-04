@@ -516,7 +516,7 @@ export const blogPosts: BlogPost[] = [
     title: "Anna Maria Island Transportation Guide: How to Get To and From Any Florida Airport",
     date: "July 1, 2026",
     readTime: "6 min read",
-    image: "/images/IMG_9674.jpg",
+    image: "/images/anna-maria-island.jpg",
     excerpt:
       "Getting to Anna Maria Island from a Florida airport is trickier than most people expect. No Uber pool, no shuttle, limited rideshare coverage. Here's every option explained — and which one actually works.",
     content: [
